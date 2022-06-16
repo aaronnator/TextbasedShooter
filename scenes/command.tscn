@@ -1,0 +1,140 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://fonts/VT323_font_26.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scrippz/Game.gd" type="Script" id=2]
+[ext_resource path="res://scrippz/CommandProcessor.gd" type="Script" id=3]
+
+[sub_resource type="Theme" id=1]
+/colors/test = Color( 0.921569, 0.0431373, 0.0431373, 1 )
+/fonts/test = null
+/styles/test3 = null
+MarginContainer/colors/red = Color( 0.262745, 0.717647, 0.133333, 1 )
+MarginContainer/constants/margin_bottom = 0
+MarginContainer/constants/margin_left = 0
+MarginContainer/constants/margin_right = 0
+MarginContainer/constants/margin_top = 0
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.145098, 0.129412, 0.129412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.145098, 0.129412, 0.129412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.282353, 0.282353, 0.282353, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends LineEdit
+
+
+# Declare member variables here. Examples:
+# var a: int = 2
+# var b: String = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	grab_focus()
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+#	pass
+
+
+func _on_Input_text_entered(new_text: String) -> void:
+	clear()
+"
+
+[node name="Game" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="CommandProcessor" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Background" type="PanelContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1024.0
+margin_bottom = 596.0
+theme = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+margin_right = 1022.0
+margin_bottom = 594.0
+custom_constants/margin_right = 9
+custom_constants/margin_top = 9
+custom_constants/margin_left = 9
+custom_constants/margin_bottom = 9
+
+[node name="Rows" type="VBoxContainer" parent="Background/MarginContainer"]
+margin_left = 9.0
+margin_top = 9.0
+margin_right = 1013.0
+margin_bottom = 585.0
+custom_constants/separation = 20
+
+[node name="GameInfo" type="PanelContainer" parent="Background/MarginContainer/Rows"]
+margin_right = 1004.0
+margin_bottom = 496.0
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 3 )
+
+[node name="Scroll" type="ScrollContainer" parent="Background/MarginContainer/Rows/GameInfo"]
+margin_right = 1004.0
+margin_bottom = 496.0
+scroll_horizontal_enabled = false
+
+[node name="HistoryRows" type="VBoxContainer" parent="Background/MarginContainer/Rows/GameInfo/Scroll"]
+margin_right = 1004.0
+margin_bottom = 496.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/Rows"]
+margin_top = 516.0
+margin_right = 1004.0
+margin_bottom = 576.0
+rect_min_size = Vector2( 0, 60 )
+custom_styles/panel = SubResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/Rows/InputArea"]
+margin_right = 1004.0
+margin_bottom = 60.0
+
+[node name="caret" type="Label" parent="Background/MarginContainer/Rows/InputArea/HBoxContainer"]
+margin_top = 16.0
+margin_right = 30.0
+margin_bottom = 43.0
+custom_colors/font_color = Color( 0.262745, 0.717647, 0.133333, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = ">>>"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Input" type="LineEdit" parent="Background/MarginContainer/Rows/InputArea/HBoxContainer"]
+margin_left = 34.0
+margin_right = 1004.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.262745, 0.717647, 0.133333, 1 )
+custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/normal = SubResource( 5 )
+script = SubResource( 6 )
+
+[connection signal="text_entered" from="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" to="." method="_on_Input_text_entered"]
+[connection signal="text_entered" from="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" to="Background/MarginContainer/Rows/InputArea/HBoxContainer/Input" method="_on_Input_text_entered"]
