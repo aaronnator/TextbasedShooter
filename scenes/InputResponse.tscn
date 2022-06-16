@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Response.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/VT323_font_24.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scrippz/InputResponse.gd" type="Script" id=3]
+
+[node name="InputResponse" type="VBoxContainer"]
+margin_right = 982.0
+margin_bottom = 56.0
+script = ExtResource( 3 )
+
+[node name="InputHistory" type="Label" parent="."]
+margin_right = 982.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.243137, 0.494118, 0.145098, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "> This is what the user typed"
+autowrap = true
+
+[node name="Response" parent="." instance=ExtResource( 1 )]
